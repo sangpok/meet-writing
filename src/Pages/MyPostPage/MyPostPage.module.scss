@@ -1,0 +1,60 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  // height: 100%;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  padding: 1.5rem 1.5rem 4.5rem;
+}
+
+.meta-info {
+  font-size: var(--font-size-18);
+}
+
+.self-center {
+  place-self: center;
+}
+
+.grayed {
+  color: var(--gray-700);
+}
+
+.skeleton-meta-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.skeleton-item {
+  border-radius: 0.25rem;
+  animation: 1s alternate-reverse 1s ease-in-out infinite shining;
+}
+
+.skeleton-post-item {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+}
+
+.skeletion-group {
+  display: flex;
+}
+
+@keyframes shining {
+  from {
+    background-color: var(--gray-200);
+  }
+
+  to {
+    background-color: var(--gray-300);
+  }
+}
+
+.noview-description {
+  margin-top: 0.5rem;
+  color: var(--gray-800);
+}

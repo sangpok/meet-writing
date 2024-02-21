@@ -1,0 +1,83 @@
+/**
+  100 Thin
+  200 Extra Light(Ultra Light)
+  300 Light
+  400 Normal(Regular)
+  500 Medium
+  600 Semi Bold(Demi Bold)
+  700 Bold
+  800 Extra Bold(Ultra Bold)
+  900 Black(Heavy)
+*/
+
+:global h1,
+:global h2,
+:global h3,
+:global h4,
+:global h5,
+:global h6,
+:global p {
+  white-space: pre-wrap;
+}
+
+:global .h1 {
+  font-size: var(--font-size-90);
+  line-height: auto;
+  font-weight: 700;
+}
+
+:global .h2 {
+  font-size: var(--font-size-64);
+  line-height: auto;
+  font-weight: 700;
+}
+
+:global .h3 {
+  font-size: var(--font-size-45);
+  line-height: auto;
+  font-weight: 700;
+}
+
+:global .h4 {
+  font-size: var(--font-size-32);
+  line-height: auto;
+  font-weight: 700;
+}
+
+:global .h5 {
+  font-size: var(--font-size-24);
+  line-height: auto;
+  font-weight: 700;
+}
+
+:global .h6 {
+  font-size: var(--font-size-18);
+  line-height: auto;
+  font-weight: 600;
+}
+
+.body1 {
+  font-size: var(--font-size-16);
+  line-height: auto;
+  font-weight: 400;
+}
+
+.body2 {
+  font-size: var(--font-size-14);
+  line-height: auto;
+  font-weight: 400;
+}
+
+.button {
+  font-size: var(--font-size-18);
+  line-height: auto;
+  font-weight: 600;
+  text-align: center;
+  text-transform: capitalize;
+}
+
+.caption {
+  font-size: var(--font-size-12);
+  line-height: auto;
+  font-weight: 400;
+}

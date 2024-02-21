@@ -1,0 +1,38 @@
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  width: 100%;
+  padding: 1.5rem;
+}
+
+.container {
+  width: 100%;
+
+  &:disabled {
+    color: var(--gray-400);
+  }
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.link-button {
+  justify-content: flex-start;
+  text-decoration: underline;
+  color: var(--gray-800);
+}
+
+.font-bold {
+  font-weight: 500;
+}
+
+.submit-field {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.25rem;
+}

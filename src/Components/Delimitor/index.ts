@@ -1,0 +1,1 @@
+export { Delimitor } from './Delimitor';

@@ -1,0 +1,13 @@
+.post-list {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.self-center {
+  place-self: center;
+}
+
+.grayed {
+  color: var(--gray-700);
+}

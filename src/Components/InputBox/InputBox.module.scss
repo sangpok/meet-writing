@@ -1,0 +1,25 @@
+// .wrapper {
+//   width: fit-content;
+// }
+
+.input-box {
+  all: unset;
+  box-sizing: border-box;
+
+  font-size: var(--font-size-16);
+  font-weight: 500;
+
+  padding-bottom: var(--spacing-1);
+
+  width: 100%;
+  border-bottom: 1px solid var(--gray-900);
+
+  &:disabled {
+    background-color: var(--disabled-bg);
+    color: var(--disabled);
+  }
+}
+
+.inline {
+  width: min-content;
+}

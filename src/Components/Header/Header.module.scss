@@ -1,0 +1,40 @@
+.header {
+  width: 100%;
+  min-height: 5rem;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.5rem;
+}
+
+.a {
+  all: unset;
+  width: 100%;
+
+  position: sticky;
+  top: var(--sat);
+}
+
+.text-button {
+  font-size: var(--font-size-18);
+  font-weight: 600;
+}
+
+.space-between {
+  justify-content: space-between;
+}
+
+.group {
+  position: absolute;
+}
+
+.left-group {
+  left: 1.5rem;
+}
+
+.right-group {
+  right: 1.5rem;
+}

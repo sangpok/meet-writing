@@ -1,0 +1,28 @@
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  padding: 1.5rem;
+}
+
+fieldset {
+  border: none;
+}
+
+.label-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.grayed {
+  color: var(--gray-800);
+}
+
+.field-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+
+  border: none;
+}

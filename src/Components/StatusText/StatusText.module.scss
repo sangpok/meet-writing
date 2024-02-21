@@ -1,0 +1,23 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--spacing-1);
+}
+
+.size-18 {
+  width: 1.125rem;
+  height: 1.125rem;
+}
+
+.alert {
+  color: var(--negative);
+}
+
+.success {
+  color: var(--success);
+}
+
+.warning {
+  color: var(--warning);
+}

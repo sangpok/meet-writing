@@ -1,0 +1,1 @@
+export { InitialSettingPage } from './InitialSettingPage';

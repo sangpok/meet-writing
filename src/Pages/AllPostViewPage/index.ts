@@ -1,0 +1,1 @@
+export { AllPostViewPage } from './AllPostViewPage';

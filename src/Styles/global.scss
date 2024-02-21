@@ -1,0 +1,20 @@
+button {
+  all: unset;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 0.25rem;
+
+  cursor: pointer;
+
+  &:disabled {
+    color: var(--disabled);
+    cursor: not-allowed;
+  }
+}
+
+*:focus-visible {
+  outline: 3px solid lightblue;
+}
