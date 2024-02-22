@@ -35,7 +35,7 @@ import {
   useSuspenseQuery,
 } from '@tanstack/react-query';
 import { AuthError, UserCredential } from 'firebase/auth';
-import { DocumentReference, FirestoreError } from 'firebase/firestore';
+import { DocumentReference, FirestoreError, FirestoreErrorCode } from 'firebase/firestore';
 import { produce } from 'immer';
 
 const randomIndex = Math.floor(Math.random() * 5);
@@ -93,7 +93,7 @@ export const useUpdateUsername = () => {
 export const useCreatePost = () => {
   const queryClient = useQueryClient();
 
-  return useMutation<boolean, FirestoreError, CreatePostRequest>({
+  return useMutation<DocumentReference, FirestoreError, CreatePostRequest>({
     mutationKey: ['createPost'],
     mutationFn: createPost,
     onSuccess() {
@@ -134,7 +134,7 @@ export const useGetMyPosts = () => {
 };
 
 export const useGetMyPostMetadata = () => {
-  return useSuspenseQuery<MypostMeta, FirestoreError, undefined>({
+  return useSuspenseQuery<MypostMeta, FirestoreErrorCode>({
     queryKey: ['my'],
     queryFn: getMyPostMetadata,
   });

@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import { changeRootFontSize } from './Utils';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+// import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { AsyncBoundary } from '@Components/AsyncBoundary';
 import { ErrorView } from '@Components/ErrorView';
 

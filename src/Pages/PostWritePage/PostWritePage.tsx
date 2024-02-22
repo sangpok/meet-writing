@@ -90,7 +90,7 @@ export const PostWritePage = () => {
 
     createPostMutation.mutate(formData, {
       onSuccess(data) {
-        navigate(`/post/all?pid=${data.postId}`);
+        navigate(`/post/all?pid=${data.id}`);
       },
       onError(error) {
         console.log(error);

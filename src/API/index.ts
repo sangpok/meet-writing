@@ -207,7 +207,7 @@ export const createPost = async ({ author, content, source, visibility }: Create
     updatedAt: timestamp,
   });
 
-  return true;
+  return result;
 };
 
 export const getMyPostMetadata = async () => {

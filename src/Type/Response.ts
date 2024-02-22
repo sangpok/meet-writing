@@ -1,9 +1,4 @@
-import {
-  DocumentData,
-  DocumentReference,
-  QueryDocumentSnapshot,
-  Timestamp,
-} from 'firebase/firestore';
+import { DocumentReference, Timestamp } from 'firebase/firestore';
 import { Post } from './Model';
 
 export type InfiniteResponse<T> = {
