@@ -1,6 +1,6 @@
 import { initializeApp } from 'firebase/app';
 import { browserLocalPersistence, initializeAuth } from 'firebase/auth';
-import { getFirestore } from 'firebase/firestore';
+import { initializeFirestore } from 'firebase/firestore';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyDwCURVjXthIBa2Zcc8r9puYrxg4nV7FOI',
@@ -13,4 +13,4 @@ const firebaseConfig = {
 
 export const firebase = initializeApp(firebaseConfig);
 export const auth = initializeAuth(firebase, { persistence: browserLocalPersistence });
-export const db = getFirestore(firebase);
+export const db = initializeFirestore(firebase, { experimentalForceLongPolling: true });

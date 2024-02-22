@@ -13,6 +13,33 @@
 @font-face {
   font-family: 'Noto Serif KR';
   font-style: normal;
+  font-weight: 100;
+  src: local('Noto Serif KR'), url('../Assets/Fonts/NotoSerifKR-ExtraLight.woff2') format('woff2'),
+    url('../Assets/Fonts/NotoSerifKR-ExtraLight.woff') format('woff'),
+    url('../Assets/Fonts/NotoSerifKR-ExtraLight.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Noto Serif KR';
+  font-style: normal;
+  font-weight: 200;
+  src: local('Noto Serif KR'), url('../Assets/Fonts/NotoSerifKR-ExtraLight.woff2') format('woff2'),
+    url('../Assets/Fonts/NotoSerifKR-ExtraLight.woff') format('woff'),
+    url('../Assets/Fonts/NotoSerifKR-ExtraLight.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Noto Serif KR';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Noto Serif KR'), url('../Assets/Fonts/NotoSerifKR-Light.woff2') format('woff2'),
+    url('../Assets/Fonts/NotoSerifKR-Light.woff') format('woff'),
+    url('../Assets/Fonts/NotoSerifKR-Light.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Noto Serif KR';
+  font-style: normal;
   font-weight: 400;
   src: local('Noto Serif KR'), url('../Assets/Fonts/NotoSerifKR-Regular.woff2') format('woff2'),
     url('../Assets/Fonts/NotoSerifKR-Regular.woff') format('woff'),
@@ -44,4 +71,22 @@
   src: local('Noto Serif KR'), url('../Assets/Fonts/NotoSerifKR-Bold.woff2') format('woff2'),
     url('../Assets/Fonts/NotoSerifKR-Bold.woff') format('woff'),
     url('../Assets/Fonts/NotoSerifKR-Bold.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Noto Serif KR';
+  font-style: normal;
+  font-weight: 800;
+  src: local('Noto Serif KR'), url('../Assets/Fonts/NotoSerifKR-Bold.woff2') format('woff2'),
+    url('../Assets/Fonts/NotoSerifKR-Bold.woff') format('woff'),
+    url('../Assets/Fonts/NotoSerifKR-Bold.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Noto Serif KR';
+  font-style: normal;
+  font-weight: 900;
+  src: local('Noto Serif KR'), url('../Assets/Fonts/NotoSerifKR-Black.woff2') format('woff2'),
+    url('../Assets/Fonts/NotoSerifKR-Black.woff') format('woff'),
+    url('../Assets/Fonts/NotoSerifKR-Black.otf') format('opentype');
 }
