@@ -1,8 +1,13 @@
-import { DocumentReference, Timestamp } from 'firebase/firestore';
+import {
+  DocumentData,
+  DocumentReference,
+  QueryDocumentSnapshot,
+  Timestamp,
+} from 'firebase/firestore';
 import { Post } from './Model';
 
 export type InfiniteResponse<T> = {
-  lastViewRef: unknown;
+  lastViewRef: DocumentReference | null;
   list: T;
 };
 

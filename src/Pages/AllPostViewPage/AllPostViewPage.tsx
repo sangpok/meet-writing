@@ -6,26 +6,24 @@ import { useSidebar } from '@Components/Sidebar/Sidebar.hook';
 import { ToggleSaveButton } from '@Components/ToggleSaveButton';
 import { useGetRandomPosts, useToggleSavedPost } from '@Hooks/FirestoreHooks';
 import { Post } from '@Type/Model';
-import { Suspense, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { LoadingUI } from './AllPostViewPage.loading';
-
+import { AsyncBoundary } from '@Components/AsyncBoundary';
+import { PageErrorUI } from './AllPostViewPage.error';
 import styles from './AllPostViewPage.module.scss';
 
 export const AllPostViewPage = () => {
   return (
-    <Suspense fallback={<LoadingUI />}>
+    <AsyncBoundary ErrorFallback={PageErrorUI} SuspenseFallback={<LoadingUI />}>
       <AwaitedPostView />
-    </Suspense>
+    </AsyncBoundary>
   );
 };
 
 export const AwaitedPostView = () => {
   const { openSidebar } = useSidebar();
-
   const getRandomPostsQuery = useGetRandomPosts();
-
   const { mutate: toggleSavedPost } = useToggleSavedPost();
-
   const [currentPost, setCurrentPost] = useState(getRandomPostsQuery.data.pages[0].list[0]);
 
   const { changeRightContents } = useHeader({

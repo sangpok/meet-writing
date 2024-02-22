@@ -1,5 +1,13 @@
 import {
+  CheckEmailRequest,
+  CheckUsernameRequest,
+  CreatePostRequest,
   CreateUserRequest,
+  ServiceLoginRequest,
+  ToggleSavedPostRequest,
+  UpdatePostRequest,
+  UpdatePostVisibilityRequest,
+  UpdateUsernameRequest,
   checkEmail,
   checkUsername,
   createPost,
@@ -27,28 +35,32 @@ import {
   useSuspenseQuery,
 } from '@tanstack/react-query';
 import { AuthError, UserCredential } from 'firebase/auth';
-import { DocumentData, QueryDocumentSnapshot } from 'firebase/firestore';
+import { DocumentReference, FirestoreError } from 'firebase/firestore';
 import { produce } from 'immer';
 
 const randomIndex = Math.floor(Math.random() * 5);
 const sortIndex = Math.floor(Math.random() * 2);
 
 export const useGetRandomPosts = () => {
-  return useSuspenseInfiniteQuery({
+  return useSuspenseInfiniteQuery<
+    InfiniteResponse<Post[]>,
+    FirestoreError,
+    InfiniteData<InfiniteResponse<Post[]>>,
+    [string],
+    DocumentReference | null
+  >({
     queryKey: ['posts'],
     queryFn: ({ pageParam: lastViewRef }) =>
       getRandomPosts({ lastViewRef, randomIndex, sortIndex }),
-    initialPageParam: null as QueryDocumentSnapshot<DocumentData, DocumentData> | null,
+    initialPageParam: null,
     getNextPageParam: (lastPage) => {
-      return lastPage.list.length < 6
-        ? undefined
-        : (lastPage.lastViewRef as QueryDocumentSnapshot<DocumentData, DocumentData>);
+      return lastPage.list.length < 6 ? undefined : lastPage.lastViewRef;
     },
   });
 };
 
 export const useCheckEmail = () => {
-  return useMutation({
+  return useMutation<boolean, FirestoreError, CheckEmailRequest>({
     mutationKey: ['checkEmail'],
     mutationFn: checkEmail,
     onError(error) {
@@ -65,14 +77,14 @@ export const useCreateUser = () => {
 };
 
 export const useCheckUsername = () => {
-  return useMutation({
+  return useMutation<boolean, FirestoreError, CheckUsernameRequest>({
     mutationKey: ['checkUsername'],
     mutationFn: checkUsername,
   });
 };
 
 export const useUpdateUsername = () => {
-  return useMutation({
+  return useMutation<boolean, FirestoreError, UpdateUsernameRequest>({
     mutationKey: ['updateUsername'],
     mutationFn: updateUsername,
   });
@@ -81,7 +93,7 @@ export const useUpdateUsername = () => {
 export const useCreatePost = () => {
   const queryClient = useQueryClient();
 
-  return useMutation({
+  return useMutation<boolean, FirestoreError, CreatePostRequest>({
     mutationKey: ['createPost'],
     mutationFn: createPost,
     onSuccess() {
@@ -94,7 +106,7 @@ export const useCreatePost = () => {
 export const useUpdatePost = () => {
   const queryClient = useQueryClient();
 
-  return useMutation({
+  return useMutation<boolean, FirestoreError, UpdatePostRequest>({
     mutationKey: ['updatePost'],
     mutationFn: updatePost,
     onSuccess() {
@@ -105,27 +117,31 @@ export const useUpdatePost = () => {
 };
 
 export const useGetMyPosts = () => {
-  return useSuspenseInfiniteQuery({
+  return useSuspenseInfiniteQuery<
+    InfiniteResponse<Post[]>,
+    FirestoreError,
+    InfiniteData<InfiniteResponse<Post[]>>,
+    [string, string],
+    DocumentReference | null
+  >({
     queryKey: ['posts', 'mypost'],
     queryFn: ({ pageParam }) => getMyPosts({ lastViewRef: pageParam }),
-    initialPageParam: null as QueryDocumentSnapshot<DocumentData, DocumentData> | null,
+    initialPageParam: null,
     getNextPageParam: (lastPage) => {
-      return lastPage.list.length < 6
-        ? undefined
-        : (lastPage.lastViewRef as QueryDocumentSnapshot<DocumentData, DocumentData>);
+      return lastPage.list.length < 6 ? undefined : lastPage.lastViewRef;
     },
   });
 };
 
 export const useGetMyPostMetadata = () => {
-  return useSuspenseQuery({
+  return useSuspenseQuery<MypostMeta, FirestoreError, undefined>({
     queryKey: ['my'],
     queryFn: getMyPostMetadata,
   });
 };
 
 export const useServiceLogin = () => {
-  return useMutation<UserCredential, AuthError, { email: string; password: string }>({
+  return useMutation<UserCredential, AuthError, ServiceLoginRequest>({
     mutationKey: ['serviceLogin'],
     mutationFn: serviceLogin,
   });
@@ -134,7 +150,12 @@ export const useServiceLogin = () => {
 export const useUpdatePostVisibility = () => {
   const queryClient = useQueryClient();
 
-  return useMutation({
+  return useMutation<
+    boolean,
+    FirestoreError,
+    UpdatePostVisibilityRequest,
+    { prevPosts: InfiniteData<InfiniteResponse<Post[]>>; prevMeta: MypostMeta }
+  >({
     mutationKey: ['updatePostVisibility'],
     mutationFn: updatePostVisibility,
     async onMutate({ id, visibility }) {
@@ -183,7 +204,7 @@ export const useUpdatePostVisibility = () => {
 export const useDeletePost = () => {
   const queryClient = useQueryClient();
 
-  return useMutation({
+  return useMutation<boolean, FirestoreError, UpdatePostVisibilityRequest>({
     mutationKey: ['deletePost'],
     mutationFn: deletePost,
     async onSuccess(_data, { id, visibility }) {
@@ -209,23 +230,28 @@ export const useDeletePost = () => {
       });
 
       queryClient.setQueryData(['my'], newMypostMeta);
-      // queryClient.invalidateQueries({ queryKey: ['my'] });
     },
   });
 };
 
 export const useGetSavedPostsMetainfo = () => {
-  return useSuspenseQuery({
+  return useSuspenseQuery<SavedPostsMeta, FirestoreError>({
     queryKey: ['savedPosts', 'metainfo'],
     queryFn: getSavedPostMetainfo,
   });
 };
 
 export const useGetSavedPosts = () => {
-  return useSuspenseInfiniteQuery({
+  return useSuspenseInfiniteQuery<
+    InfiniteResponse<Post[]>,
+    FirestoreError,
+    InfiniteData<InfiniteResponse<Post[]>>,
+    [string],
+    DocumentReference | null
+  >({
     queryKey: ['savedPosts'],
     queryFn: ({ pageParam: lastViewRef }) => getSavedPosts({ lastViewRef }),
-    initialPageParam: null as QueryDocumentSnapshot<DocumentData, DocumentData> | null,
+    initialPageParam: null,
     getNextPageParam(lastPage) {
       return lastPage.list.length < 6 ? undefined : lastPage.lastViewRef;
     },
@@ -235,7 +261,7 @@ export const useGetSavedPosts = () => {
 export const useResignService = () => {
   const queryClient = useQueryClient();
 
-  return useMutation({
+  return useMutation<boolean, FirestoreError, undefined>({
     mutationKey: ['resignService'],
     mutationFn: resignService,
     onSuccess() {
@@ -248,7 +274,17 @@ export const useResignService = () => {
 export const useToggleSavedPost = () => {
   const queryClient = useQueryClient();
 
-  return useMutation({
+  return useMutation<
+    boolean,
+    FirestoreError,
+    ToggleSavedPostRequest,
+    {
+      prevAllPosts?: InfiniteData<InfiniteResponse<Post[]>>;
+      prevMyPosts?: InfiniteData<InfiniteResponse<Post[]>>;
+      prevSavedPosts?: InfiniteData<InfiniteResponse<Post[]>>;
+      prevSavedPostsMeta?: SavedPostsMeta;
+    }
+  >({
     mutationKey: ['toggleSavedPost'],
     mutationFn: toggleSavedPost,
     async onMutate({ id, isSavedPost }) {

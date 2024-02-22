@@ -1,0 +1,13 @@
+.fallback {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  gap: var(--spacing-6);
+}
+
+.undefined-error {
+  color: var(--gray-800);
+  text-align: center;
+}

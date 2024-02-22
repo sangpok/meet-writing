@@ -1,6 +1,6 @@
 import { cachedPosts, cachedUsers } from '@Firebase/cachedData';
 import { auth, db } from '@Firebase/firebase';
-import { Post, SavedPostsMeta, User } from '@Type/Model';
+import { MypostMeta, Post, SavedPostsMeta, User } from '@Type/Model';
 import { InfiniteResponse, SavedPostDoc } from '@Type/Response';
 import { shuffle } from '@Utils/index';
 import {
@@ -9,10 +9,8 @@ import {
   updateProfile,
 } from 'firebase/auth';
 import {
-  DocumentData,
   DocumentReference,
   OrderByDirection,
-  QueryDocumentSnapshot,
   Timestamp,
   addDoc,
   and,
@@ -40,7 +38,7 @@ export const getRandomPosts = async ({
   pageSize?: number;
   randomIndex?: number;
   sortIndex?: number;
-  lastViewRef: QueryDocumentSnapshot<DocumentData, DocumentData> | null;
+  lastViewRef: DocumentReference | null;
 }) => {
   const randomFields = ['A', 'B', 'C', 'D', 'E'];
   const selectedRandomField = randomFields[randomIndex];
@@ -92,7 +90,7 @@ export const getRandomPosts = async ({
   );
 
   return {
-    lastViewRef: querySnapshot.docs.at(-1),
+    lastViewRef: querySnapshot.docs.at(-1) as unknown as DocumentReference,
     list: await Promise.all(
       shuffle(
         querySnapshot.docs.map(async (doc) => {
@@ -126,7 +124,7 @@ export const getRandomPosts = async ({
   } as InfiniteResponse<Post[]>;
 };
 
-type CheckEmailRequest = { email: string };
+export type CheckEmailRequest = { email: string };
 export const checkEmail = async ({ email }: CheckEmailRequest) => {
   const q = query(collection(db, 'users'), where('email', '==', email));
   const querySnapshot = await getDocs(q);
@@ -209,7 +207,7 @@ export const createPost = async ({ author, content, source, visibility }: Create
     updatedAt: timestamp,
   });
 
-  return { postId: result.id };
+  return true;
 };
 
 export const getMyPostMetadata = async () => {
@@ -224,7 +222,7 @@ export const getMyPostMetadata = async () => {
     .map((mypost) => mypost.get('visibility'))
     .filter((visibility) => visibility === 'public').length;
 
-  return { postsCount, publicCount };
+  return { postsCount, publicCount } as MypostMeta;
 };
 
 export const getMyPosts = async ({
@@ -232,7 +230,7 @@ export const getMyPosts = async ({
   lastViewRef = null,
 }: {
   pageSize?: number;
-  lastViewRef: QueryDocumentSnapshot<DocumentData, DocumentData> | null;
+  lastViewRef: DocumentReference | null;
 }) => {
   const postsRef = collection(db, 'posts');
   const userRef = doc(collection(db, 'users'), auth.currentUser!.uid);
@@ -279,7 +277,7 @@ export const getMyPosts = async ({
   );
 
   return {
-    lastViewRef: mypostDocs.docs[mypostDocs.size - 1],
+    lastViewRef: mypostDocs.docs[mypostDocs.size - 1] as unknown as DocumentReference,
     list: mypostDocs.docs.map((mypostDoc) => {
       return {
         id: mypostDoc.id,
@@ -291,7 +289,8 @@ export const getMyPosts = async ({
   } as InfiniteResponse<Post[]>;
 };
 
-export const serviceLogin = async ({ email, password }: { email: string; password: string }) => {
+export type ServiceLoginRequest = { email: string; password: string };
+export const serviceLogin = async ({ email, password }: ServiceLoginRequest) => {
   const userCredential = await signInWithEmailAndPassword(auth, email, password);
 
   const hasNoDisplayName = userCredential.user.displayName === null;
@@ -336,13 +335,8 @@ export const updatePost = async ({
   return true;
 };
 
-export const updatePostVisibility = async ({
-  id,
-  visibility,
-}: {
-  id: string;
-  visibility: string;
-}) => {
+export type UpdatePostVisibilityRequest = { id: string; visibility: string };
+export const updatePostVisibility = async ({ id, visibility }: UpdatePostVisibilityRequest) => {
   const postRef = doc(collection(db, 'posts'), id);
   const timestamp = Timestamp.now();
 
@@ -387,13 +381,8 @@ export const deleteSavedPost = async ({ postId }: { postId: string }) => {
   return true;
 };
 
-export const toggleSavedPost = async ({
-  id,
-  isSavedPost,
-}: {
-  id: string;
-  isSavedPost: boolean;
-}) => {
+export type ToggleSavedPostRequest = { id: string; isSavedPost: boolean };
+export const toggleSavedPost = async ({ id, isSavedPost }: ToggleSavedPostRequest) => {
   const savedPostsRef = collection(db, 'saved_posts');
   const postDocRef = doc(collection(db, 'posts'), id);
 
@@ -432,7 +421,7 @@ export const getSavedPosts = async ({
   lastViewRef = null,
 }: {
   pageSize?: number;
-  lastViewRef?: QueryDocumentSnapshot<DocumentData, DocumentData> | null;
+  lastViewRef: DocumentReference | null;
 }) => {
   const savedPostsRef = collection(db, 'saved_posts');
 
@@ -462,7 +451,7 @@ export const getSavedPosts = async ({
   );
 
   const infiniteResponse = {
-    lastViewRef: savedPostDocs.docs.at(-1),
+    lastViewRef: savedPostDocs.docs.at(-1) as unknown as DocumentReference,
     list: savedPosts,
   };
 
