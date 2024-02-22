@@ -9,7 +9,7 @@
 html {
   width: 100%;
   height: 100dvh;
-  background-image: url('/background.jpg');
+  background-image: url('./Assets/background.webp');
   background-repeat: repeat;
   background-size: cover;
   padding-top: var(--sat);
