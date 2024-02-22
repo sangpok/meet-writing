@@ -341,7 +341,7 @@ export const updatePostVisibility = async ({ id, visibility }: UpdatePostVisibil
   const timestamp = Timestamp.now();
 
   await updateDoc(postRef, {
-    visibility,
+    visibility: visibility === 'public' ? 'private' : 'public',
     updatedAt: timestamp,
   });
 
