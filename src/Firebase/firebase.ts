@@ -1,6 +1,7 @@
 import { initializeApp } from 'firebase/app';
 import { browserLocalPersistence, initializeAuth } from 'firebase/auth';
 import { initializeFirestore } from 'firebase/firestore';
+import { getPerformance } from 'firebase/performance';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyDwCURVjXthIBa2Zcc8r9puYrxg4nV7FOI',
@@ -14,3 +15,4 @@ const firebaseConfig = {
 export const firebase = initializeApp(firebaseConfig);
 export const auth = initializeAuth(firebase, { persistence: browserLocalPersistence });
 export const db = initializeFirestore(firebase, { experimentalForceLongPolling: true });
+export const perf = getPerformance(firebase);
