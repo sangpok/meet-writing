@@ -13,9 +13,10 @@
 
 #### 개발 기간
 - 총 한 달, 2024년 02월 02일 ~ 02월 23일
+- 기획 및 디자인 2주, 1차 개발 2주
 
 #### 배포 주소
-- https://meet-writing.vercel.app/
+- https://meet-writing.vercel.app/, by Vercel
 
 #### 화면설계 URL
 - [마중글 Prototyping UI / Figma URL](https://www.figma.com/file/OkRMzY85ORjBxoHZ83Agv4/%EB%A7%88%EC%A4%91%EA%B8%80(Meet-writing)?type=design&node-id=140%3A122&mode=design&t=xIIrvRBjUgKFPnAJ-1)
